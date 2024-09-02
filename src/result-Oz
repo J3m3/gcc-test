@@ -1,34 +1,24 @@
 Comparing ./gtype-desc.s and ./gtype-desc.mod.s
 Comparing ./tree-ssa-dce.s and ./tree-ssa-dce.mod.s
 Comparing ./optabs.s and ./optabs.mod.s
-53782a53783
+18075a18076
 > 	negq	%rax
-53785,53790c53786,53789
-< 	movw	$24415, (%r13)                  # imm = 0x5F5F
-< 	.loc	0 5760 12                       # optabs.c:5760:12
+18078,18080c18079,18080
+< 	movw	%dx, (%r15)
 < 	negq	%rax
-< 	.loc	0 5760 3 is_stmt 0              # optabs.c:5760:3
 < 	movl	$1600416098, 2(%rcx,%rax)       # imm = 0x5F646962
-< 	.loc	0 5761 12 is_stmt 1             # optabs.c:5761:12
 ---
-> 	movw	$24415, (%rcx,%rax)             # imm = 0x5F5F
-> 	.loc	0 5760 3                        # optabs.c:5760:3
-> 	movl	$1600416098, 2(%r13)            # imm = 0x5F646962
-> 	.loc	0 5761 12                       # optabs.c:5761:12
-54291a54291
+> 	movw	%dx, (%rcx,%rax)
+> 	movl	$1600416098, 2(%r15)            # imm = 0x5F646962
+18215a18216
 > 	negq	%rax
-54294,54299c54294,54297
-< 	movw	$24415, (%r13)                  # imm = 0x5F5F
-< 	.loc	0 5885 12                       # optabs.c:5885:12
+18218,18220c18219,18220
+< 	movw	%dx, (%r15)
 < 	negq	%rax
-< 	.loc	0 5885 3 is_stmt 0              # optabs.c:5885:3
 < 	movl	$1600416098, 2(%rcx,%rax)       # imm = 0x5F646962
-< 	.loc	0 5886 12 is_stmt 1             # optabs.c:5886:12
 ---
-> 	movw	$24415, (%rcx,%rax)             # imm = 0x5F5F
-> 	.loc	0 5885 3                        # optabs.c:5885:3
-> 	movl	$1600416098, 2(%r13)            # imm = 0x5F646962
-> 	.loc	0 5886 12                       # optabs.c:5886:12
+> 	movw	%dx, (%rcx,%rax)
+> 	movl	$1600416098, 2(%r15)            # imm = 0x5F646962
 Comparing ./tree-ssa-loop-manip.s and ./tree-ssa-loop-manip.mod.s
 Comparing ./strsignal.s and ./strsignal.mod.s
 Comparing ./stack-ptr-mod.s and ./stack-ptr-mod.mod.s
@@ -117,34 +107,6 @@ Comparing ./mcf.s and ./mcf.mod.s
 Comparing ./tree-ssa-dom.s and ./tree-ssa-dom.mod.s
 Comparing ./options.s and ./options.mod.s
 Comparing ./omega.s and ./omega.mod.s
-20511d20510
-< 	#DEBUG_VALUE: swap:j <- undef
-20512a20512
-> 	#DEBUG_VALUE: swap:j <- undef
-42196d42195
-< 	#DEBUG_VALUE: swap:i <- undef
-42197a42197
-> 	#DEBUG_VALUE: swap:i <- undef
-42340d42339
-< 	#DEBUG_VALUE: swap:i <- undef
-42341a42341
-> 	#DEBUG_VALUE: swap:i <- undef
-42445d42444
-< 	#DEBUG_VALUE: swap:j <- undef
-42446a42446
-> 	#DEBUG_VALUE: swap:j <- undef
-43746d43745
-< 	#DEBUG_VALUE: swap:j <- undef
-43747a43747
-> 	#DEBUG_VALUE: swap:j <- undef
-43993d43992
-< 	#DEBUG_VALUE: swap:i <- undef
-43994a43994
-> 	#DEBUG_VALUE: swap:i <- undef
-44136d44135
-< 	#DEBUG_VALUE: swap:i <- undef
-44137a44137
-> 	#DEBUG_VALUE: swap:i <- undef
 Comparing ./tree-ssa-threadedge.s and ./tree-ssa-threadedge.mod.s
 Comparing ./host-linux.s and ./host-linux.mod.s
 Comparing ./gimplify.s and ./gimplify.mod.s
@@ -304,13 +266,10 @@ Comparing ./insn-attrtab.s and ./insn-attrtab.mod.s
 Comparing ./decContext.s and ./decContext.mod.s
 Comparing ./lto-wpa-fixup.s and ./lto-wpa-fixup.mod.s
 Comparing ./varasm.s and ./varasm.mod.s
-3392d3391
-< 	negq	%rdx
-3394,3395c3393,3395
+1071,1072c1071,1072
 < 	movl	$1685025326, (%rcx,%rdx)        # imm = 0x646F722E
 < 	movl	$1635017060, 3(%r15)            # imm = 0x61746164
 ---
-> 	negq	%rdx
 > 	movl	$1635017060, 3(%rcx,%rdx)       # imm = 0x61746164
 > 	movl	$1685025326, (%r15)             # imm = 0x646F722E
 Comparing ./expmed.s and ./expmed.mod.s
@@ -354,6 +313,14 @@ Comparing ./cgraphbuild.s and ./cgraphbuild.mod.s
 Comparing ./getopt1.s and ./getopt1.mod.s
 Comparing ./insn-output.s and ./insn-output.mod.s
 Comparing ./tree-outof-ssa.s and ./tree-outof-ssa.mod.s
+530c530,534
+< 	cmpl	$-1, %ebp
+---
+> 	pushq	$-1
+> 	.cfi_adjust_cfa_offset 8
+> 	popq	%rax
+> 	.cfi_adjust_cfa_offset -8
+> 	cmpl	%eax, %ebp
 Comparing ./argv.s and ./argv.mod.s
 Comparing ./getopt.s and ./getopt.mod.s
 Comparing ./tree-sra.s and ./tree-sra.mod.s
@@ -381,6 +348,10 @@ Comparing ./dwarf2asm.s and ./dwarf2asm.mod.s
 Comparing ./tree-ssa-loop-ivopts.s and ./tree-ssa-loop-ivopts.mod.s
 Comparing ./c-objc-common.s and ./c-objc-common.mod.s
 Comparing ./rtlanal.s and ./rtlanal.mod.s
+10177a10178
+> 	xorq	%rdx, %rsi
+10179d10179
+< 	notq	%rsi
 Comparing ./dce.s and ./dce.mod.s
 Comparing ./ira-costs.s and ./ira-costs.mod.s
 Comparing ./recog.s and ./recog.mod.s
